@@ -1,176 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAR-O Police Verification</title>
+  <title>CAR-O Vehicle System</title>
 
-<style>
+  <style>
+    body{
+      margin:0;
+      font-family: Arial;
+      background: linear-gradient(135deg,#0f172a,#1e3a8a);
+      padding:20px;
+      color:white;
+    }
 
-body{
-  margin:0;
-  font-family: system-ui;
-  background:#0a0f1c;
-  color:#e5e7eb;
-}
+    .card{
+      background:white;
+      color:#111;
+      max-width:420px;
+      margin:auto;
+      padding:20px;
+      border-radius:16px;
+      box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    }
 
-/* TOP BAR */
-.topbar{
-  background:#111827;
-  padding:14px;
-  text-align:center;
-  font-weight:700;
-  letter-spacing:1px;
-  border-bottom:1px solid #1f2937;
-}
+    .logo{
+      text-align:center;
+      margin-bottom:10px;
+    }
 
-/* WRAPPER */
-.wrapper{
-  max-width:520px;
-  margin:30px auto;
-  padding:0 15px;
-}
+    .logo img{
+      width:90px;
+      border-radius:50%;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    }
 
-/* CARD */
-.card{
-  position:relative;
-  background:#111827;
-  border:2px solid #1f2937;
-  border-radius:14px;
-  padding:18px;
-  overflow:hidden;
-}
+    h2{
+      text-align:center;
+      margin:10px 0;
+      color:#1e3a8a;
+    }
 
-/* STAMP */
-.stamp{
-  position:absolute;
-  top:20px;
-  right:15px;
-  transform:rotate(-15deg);
-  border:2px solid #ef4444;
-  color:#ef4444;
-  padding:6px 10px;
-  font-size:12px;
-  font-weight:700;
-  border-radius:6px;
-  opacity:0.8;
-}
+    .row{
+      padding:10px;
+      border-bottom:1px solid #eee;
+      font-size:15px;
+    }
 
-/* BADGE HEADER */
-.headerBox{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:15px;
-}
+    .label{
+      font-weight:bold;
+      color:#555;
+    }
 
-.logo{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  border:2px solid #374151;
-}
+    .badge{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+      color:white;
+    }
 
-.title{
-  font-weight:700;
-  font-size:14px;
-  color:#93c5fd;
-}
+    .active{
+      background:green;
+    }
 
-/* ROW */
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #1f2937;
-}
+    .inactive{
+      background:red;
+    }
 
-.label{
-  color:#9ca3af;
-  font-size:13px;
-}
-
-.value{
-  font-weight:500;
-}
-
-/* STATUS BADGE */
-.badge{
-  background:#16a34a;
-  padding:4px 10px;
-  border-radius:999px;
-  font-size:12px;
-  color:#fff;
-}
-
-/* FOOT NOTE */
-.footer{
-  margin-top:10px;
-  font-size:11px;
-  color:#6b7280;
-  text-align:center;
-}
-
-.error{
-  text-align:center;
-  color:#ef4444;
-  padding:40px;
-}
-
-</style>
+    .footer{
+      text-align:center;
+      font-size:12px;
+      color:gray;
+      margin-top:15px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="topbar">🚔 OFFICIAL POLICE VEHICLE VERIFICATION SYSTEM</div>
+<div class="card" id="output">
 
-<div class="wrapper">
+  <div class="logo">
+    <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
+  </div>
 
-<div id="output">Loading...</div>
+  <h2>🚗 CAR-O VERIFICATION</h2>
+
+  Loading...
 
 </div>
 
 <script src="data.js"></script>
 
 <script>
-
 const id = new URLSearchParams(window.location.search).get("id");
 
-function render(v){
+if(DATA[id]){
+  let v = DATA[id];
 
   document.getElementById("output").innerHTML = `
-    <div class="card">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
+    </div>
 
-      <div class="stamp">VERIFIED ✓</div>
+    <h2>🚗 CAR-O VEHICLE</h2>
 
-      <div class="headerBox">
-        <img class="logo"
-        src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png"
-        onerror="this.style.display='none'">
+    <div class="row">🚘 <span class="label">Vehicle:</span> ${v.vehicle}</div>
+    <div class="row">👤 <span class="label">Owner:</span> ${v.owner}</div>
+    <div class="row">📱 <span class="label">Mobile:</span> ${v.mobile}</div>
+    <div class="row">📍 <span class="label">Address:</span> ${v.address}</div>
+    <div class="row">🛡 <span class="label">Insurance:</span> ${v.insurance}</div>
 
-        <div class="title">J&K VEHICLE RECORD SYSTEM</div>
-      </div>
+    <div class="row">
+      📊 Status:
+      <span class="badge ${v.status == 'Active' ? 'active' : 'inactive'}">
+        ${v.status}
+      </span>
+    </div>
 
-      <div class="row"><div class="label">Vehicle</div><div class="value">${v.vehicle}</div></div>
-      <div class="row"><div class="label">Owner</div><div class="value">${v.owner}</div></div>
-      <div class="row"><div class="label">Mobile</div><div class="value">${v.mobile}</div></div>
-      <div class="row"><div class="label">Address</div><div class="value">${v.address}</div></div>
-      <div class="row"><div class="label">Insurance</div><div class="value">${v.insurance}</div></div>
-      <div class="row"><div class="label">Status</div><div class="value"><span class="badge">${v.status}</span></div></div>
-
-      <div class="footer">This record is system generated and for verification only.</div>
-
+    <div class="footer">
+      ✔ Verified by CAR-O System
     </div>
   `;
 }
-
-if(typeof DATA !== "undefined" && DATA[id]){
-  render(DATA[id]);
-}else{
-  document.getElementById("output").innerHTML =
-  "<div class='error'>VEHICLE NOT FOUND</div>";
+else{
+  document.getElementById("output").innerHTML = "Vehicle Not Found";
 }
-
 </script>
 
 </body>

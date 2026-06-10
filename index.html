@@ -9,26 +9,31 @@ body{
   margin:0;
   font-family: system-ui;
   background:#f1f5f9;
-  color:#0f172a;
 }
 
-/* OUTER CARD */
+/* CARD WRAPPER */
 .card{
   position:relative;
-  max-width:520px;
+  width:520px;
   margin:30px auto;
   background:white;
   border-radius:18px;
-  padding:25px;
   overflow:hidden;
   box-shadow:0 20px 50px rgba(0,0,0,0.12);
   border-top:6px solid #1d4ed8;
 }
 
-/* 🔻 FIXED WATERMARK (NO MOVEMENT EVER) */
+/* 🔒 FIXED LAYOUT LAYER (IMPORTANT) */
+.layer{
+  position:relative;
+  padding:25px;
+  z-index:2;
+}
+
+/* 🔻 WATERMARK FIXED BOTTOM (NO MOVE) */
 .watermark{
   position:absolute;
-  bottom:-60px;   /* 🔥 always bottom fixed */
+  bottom:0;
   left:50%;
   transform:translateX(-50%);
 
@@ -44,12 +49,6 @@ body{
 
   z-index:0;
   pointer-events:none;
-}
-
-/* CONTENT */
-.content{
-  position:relative;
-  z-index:2;
 }
 
 /* HEADER */
@@ -70,24 +69,25 @@ body{
   width:160px;
   height:160px;
   border-radius:50%;
-  object-fit:cover;
   border:5px solid #1d4ed8;
+  object-fit:cover;
   box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* TITLE */
 h2{
   text-align:center;
-  font-size:18px;
   margin-bottom:20px;
+  font-size:18px;
 }
 
-/* ROW */
+/* ROWS */
 .row{
   display:flex;
   justify-content:space-between;
   padding:12px 0;
   border-bottom:1px solid #e2e8f0;
+  font-size:14px;
 }
 
 .label{
@@ -99,27 +99,32 @@ h2{
   font-weight:500;
 }
 
-/* 🔴 FIXED VERIFIED STAMP (ALWAYS SAME POSITION) */
-.stamp{
+/* 🔴 FIXED STAMP (TRUE CENTER OVER CONTENT ONLY) */
+.stamp-layer{
   position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
 
-  top:62%;   /* 🔥 fixed lower than center (~1cm down feel) */
-  left:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  transform:translate(-50%,-50%) rotate(-18deg);
+  z-index:1;
+  pointer-events:none;
+}
 
+/* STAMP STYLE */
+.stamp{
   border:5px solid #dc2626;
   color:#dc2626;
   font-weight:900;
   font-size:22px;
-
   padding:12px 18px;
   border-radius:10px;
-
   background:rgba(255,255,255,0.9);
-
-  z-index:1;
-
+  transform:rotate(-18deg);
   box-shadow:0 10px 20px rgba(0,0,0,0.25);
 }
 
@@ -149,10 +154,16 @@ h2{
 
 <div class="card">
 
-  <!-- FIXED WATERMARK -->
+  <!-- WATERMARK FIXED -->
   <div class="watermark"></div>
 
-  <div class="content" id="output">
+  <!-- STAMP LOCKED LAYER -->
+  <div class="stamp-layer">
+    <div class="stamp">VERIFIED ✓</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="layer" id="output">
     Loading...
   </div>
 
@@ -189,9 +200,6 @@ if(DATA[id]){
     </div>
 
     <div class="footer">✔ System Generated Verified Document</div>
-
-    <!-- FIXED STAMP (ALWAYS SAME POSITION) -->
-    <div class="stamp">VERIFIED ✓</div>
 
   `;
 }

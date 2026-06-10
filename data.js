@@ -16,3 +16,11 @@ const DATA = {
     status: "Active"
   }
 };
+"V003": {
+  vehicle: "JK14D5892",
+  owner: "AMIT KUMAR",
+  mobile: "9419299199",
+  address: "WARD 1, UDHAMPUR",
+  insurance: "05-2026",
+  status: "undefined"
+},

@@ -2,11 +2,43 @@
 <html>
 <head>
   <title>CAR-O System</title>
+  <style>
+    body{font-family:Arial;background:#eef2f7;padding:20px;}
+    .card{background:white;padding:20px;max-width:420px;margin:auto;border-radius:12px;}
+    h2{text-align:center;}
+    .row{margin:8px 0;}
+    .label{font-weight:bold;}
+    .status{color:green;font-weight:bold;}
+  </style>
 </head>
 <body>
 
-<h2>🚗 CAR-O Vehicle System Running</h2>
-<p>QR system setup in progress...</p>
+<div class="card" id="output">
+  <h2>Loading CAR-O...</h2>
+</div>
+
+<script src="data.js"></script>
+
+<script>
+const id = new URLSearchParams(window.location.search).get("id");
+
+if(DATA[id]){
+  const v = DATA[id];
+
+  document.getElementById("output").innerHTML = `
+    <h2>🚗 CAR-O Vehicle</h2>
+    <div class="row"><span class="label">Vehicle:</span> ${v.vehicle}</div>
+    <div class="row"><span class="label">Owner:</span> ${v.owner}</div>
+    <div class="row"><span class="label">Mobile:</span> ${v.mobile}</div>
+    <div class="row"><span class="label">Address:</span> ${v.address}</div>
+    <div class="row"><span class="label">Insurance:</span> ${v.insurance}</div>
+    <div class="row"><span class="label">Status:</span> ${v.status}</div>
+  `;
+}
+else{
+  document.getElementById("output").innerHTML = "Vehicle Not Found";
+}
+</script>
 
 </body>
 </html>

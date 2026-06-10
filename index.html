@@ -12,7 +12,7 @@ body{
   color:#0f172a;
 }
 
-/* MAIN CARD */
+/* CARD */
 .card{
   position:relative;
   max-width:520px;
@@ -25,23 +25,23 @@ body{
   border-top:6px solid #1d4ed8;
 }
 
-/* WATERMARK LOGO */
+/* WATERMARK */
 .card::before{
   content:"";
   position:absolute;
   top:50%;
   left:50%;
-  width:300px;
-  height:300px;
+  width:320px;
+  height:320px;
   transform:translate(-50%,-50%);
   background:url("https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png");
   background-size:contain;
   background-repeat:no-repeat;
-  opacity:0.07;
+  opacity:0.06;
   z-index:0;
 }
 
-/* CONTENT ABOVE WATERMARK */
+/* CONTENT */
 .content{
   position:relative;
   z-index:1;
@@ -53,7 +53,6 @@ body{
   font-weight:700;
   color:#1d4ed8;
   margin-bottom:10px;
-  font-size:18px;
 }
 
 /* BIG LOGO */
@@ -65,8 +64,8 @@ body{
 .logo img{
   width:160px;
   height:160px;
-  object-fit:cover;
   border-radius:50%;
+  object-fit:cover;
   border:5px solid #1d4ed8;
   box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
@@ -76,7 +75,6 @@ h2{
   text-align:center;
   font-size:18px;
   margin-bottom:20px;
-  color:#0f172a;
 }
 
 /* ROW */
@@ -85,7 +83,6 @@ h2{
   justify-content:space-between;
   padding:12px 0;
   border-bottom:1px solid #e2e8f0;
-  font-size:14px;
 }
 
 .label{
@@ -95,7 +92,21 @@ h2{
 
 .value{
   font-weight:500;
-  color:#0f172a;
+}
+
+/* RED STAMP */
+.stamp{
+  position:absolute;
+  top:20px;
+  right:20px;
+  transform:rotate(-20deg);
+  border:3px solid red;
+  color:red;
+  font-weight:800;
+  font-size:14px;
+  padding:8px 12px;
+  border-radius:6px;
+  opacity:0.85;
 }
 
 /* BADGE */
@@ -106,13 +117,8 @@ h2{
   color:white;
 }
 
-.active{
-  background:#16a34a;
-}
-
-.inactive{
-  background:#dc2626;
-}
+.active{ background:#16a34a; }
+.inactive{ background:#dc2626; }
 
 /* FOOTER */
 .footer{
@@ -128,9 +134,7 @@ h2{
 <body>
 
 <div class="card" id="output">
-  <div class="content">
-    Loading...
-  </div>
+  Loading...
 </div>
 
 <script src="data.js"></script>
@@ -144,6 +148,8 @@ if(DATA[id]){
 
   document.getElementById("output").innerHTML = `
     <div class="content">
+
+      <div class="stamp">VERIFIED ✓</div>
 
       <div class="header">🚔 CAR-O VEHICLE VERIFICATION SYSTEM</div>
 

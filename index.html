@@ -2,67 +2,96 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CAR-O Verification</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAR-O Verification System</title>
 
 <style>
 
 body{
   margin:0;
-  font-family: Arial;
-  background: linear-gradient(135deg,#0f172a,#1e293b);
+  font-family: "Segoe UI", Arial;
+  background: radial-gradient(circle at top,#0f172a,#020617);
   color:#fff;
 }
 
-/* HEADER */
-.header{
-  background:#111827;
-  padding:15px;
+/* TOP BAR */
+.topbar{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding:18px;
   text-align:center;
-  font-size:20px;
-  font-weight:bold;
+  font-size:18px;
+  font-weight:600;
   letter-spacing:1px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-/* CARD */
+/* MAIN CARD */
 .card{
-  background:rgba(255,255,255,0.95);
-  color:#111;
   max-width:420px;
-  margin:20px auto;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
-/* ROW */
-.row{
-  padding:10px 0;
-  border-bottom:1px solid #eee;
-  font-size:15px;
-}
-
-.label{
-  font-weight:bold;
-  color:#374151;
-}
-
-/* STATUS */
-.status{
-  display:inline-block;
-  padding:5px 10px;
+  margin:30px auto;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:20px;
-  background:green;
-  color:#fff;
-  font-size:12px;
+  padding:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
+/* LOGO */
 .logo{
   text-align:center;
   margin-bottom:10px;
 }
 
 .logo img{
-  width:70px;
+  width:80px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.3);
+}
+
+/* TITLE */
+.title{
+  text-align:center;
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:15px;
+  color:#93c5fd;
+}
+
+/* ROWS */
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  font-size:14px;
+}
+
+.label{
+  color:#cbd5e1;
+}
+
+.value{
+  font-weight:600;
+  color:#fff;
+}
+
+/* STATUS BADGE */
+.badge{
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  background:linear-gradient(90deg,#22c55e,#16a34a);
+  color:#fff;
+}
+
+/* NOT FOUND */
+.error{
+  text-align:center;
+  padding:40px;
+  color:#f87171;
+  font-weight:bold;
 }
 
 </style>
@@ -70,11 +99,9 @@ body{
 
 <body>
 
-<div class="header">🚗 CAR-O VEHICLE VERIFICATION</div>
+<div class="topbar">🚨 CAR-O VEHICLE VERIFICATION PORTAL</div>
 
-<div class="card" id="output">
-  Loading...
-</div>
+<div class="card" id="output">Loading...</div>
 
 <script src="data.js"></script>
 
@@ -92,22 +119,24 @@ if(DATA && DATA[id]){
       <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
     </div>
 
-    <div class="row"><span class="label">🚘 Vehicle:</span> ${v.vehicle}</div>
-    <div class="row"><span class="label">👤 Owner:</span> ${v.owner}</div>
-    <div class="row"><span class="label">📱 Mobile:</span> ${v.mobile}</div>
-    <div class="row"><span class="label">📍 Address:</span> ${v.address}</div>
-    <div class="row"><span class="label">🛡 Insurance:</span> ${v.insurance}</div>
+    <div class="title">OFFICIAL VEHICLE RECORD</div>
 
+    <div class="row"><span class="label">Vehicle</span><span class="value">${v.vehicle}</span></div>
+    <div class="row"><span class="label">Owner</span><span class="value">${v.owner}</span></div>
+    <div class="row"><span class="label">Mobile</span><span class="value">${v.mobile}</span></div>
+    <div class="row"><span class="label">Address</span><span class="value">${v.address}</span></div>
+    <div class="row"><span class="label">Insurance</span><span class="value">${v.insurance}</span></div>
     <div class="row">
-      <span class="label">Status:</span>
-      <span class="status">${v.status}</span>
+      <span class="label">Status</span>
+      <span class="badge">${v.status}</span>
     </div>
 
   `;
 
 }else{
-  document.getElementById("output").innerHTML =
-  "<h3 style='text-align:center'>❌ Vehicle Not Found</h3>";
+  document.getElementById("output").innerHTML = `
+    <div class="error">❌ VEHICLE NOT FOUND</div>
+  `;
 }
 
 </script>

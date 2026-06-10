@@ -23,4 +23,5 @@ const DATA = {
   address: "WARD 1, UDHAMPUR",
   insurance: "05-2026",
   status: "Active"
+}
 },

@@ -3,77 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>CAR-O Verification</title>
 
 <style>
 
 body{
   margin:0;
-  font-family: Arial;
-  background:#050816;
-  color:#fff;
+  font-family: system-ui, Arial;
+  background:#0b1220;
+  color:#e5e7eb;
 }
 
 /* HEADER */
 .header{
+  background:#111827;
+  padding:14px;
   text-align:center;
-  padding:15px;
-  background:#0f172a;
-  font-weight:bold;
-  letter-spacing:1px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  border-bottom:1px solid #1f2937;
 }
 
-/* LOADING */
-.loading{
-  text-align:center;
-  margin-top:80px;
-  font-size:18px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink{
-  50%{opacity:0.3;}
+/* WRAPPER */
+.wrapper{
+  max-width:520px;
+  margin:30px auto;
+  padding:0 15px;
 }
 
 /* CARD */
 .card{
-  max-width:420px;
-  margin:20px auto;
-  padding:20px;
-  border-radius:15px;
-
-  background:rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-
-  border:1px solid rgba(255,255,255,0.2);
-
-  box-shadow:0 0 20px rgba(0,255,200,0.2);
-
-  animation: fadeIn 0.8s ease-in;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
+  background:#111827;
+  border:1px solid #1f2937;
+  border-radius:12px;
+  padding:18px;
 }
 
 /* ROW */
 .row{
+  display:flex;
+  justify-content:space-between;
   padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,0.1);
+  border-bottom:1px solid #1f2937;
 }
 
-/* LABEL */
 .label{
-  color:#38bdf8;
-  font-weight:bold;
+  color:#9ca3af;
+  font-size:13px;
+}
+
+.value{
+  font-weight:500;
+  color:#f3f4f6;
 }
 
 /* STATUS */
-.status{
-  color:#00ff99;
-  font-weight:bold;
+.badge{
+  padding:3px 10px;
+  border-radius:999px;
+  font-size:12px;
+  background:#16a34a;
+  color:white;
+}
+
+/* NOT FOUND */
+.error{
+  text-align:center;
+  color:#ef4444;
+  padding:40px 0;
 }
 
 </style>
@@ -81,9 +78,13 @@ body{
 
 <body>
 
-<div class="header">🚨 CAR-O VERIFICATION SYSTEM</div>
+<div class="header">CAR-O VEHICLE VERIFICATION SYSTEM</div>
 
-<div id="output" class="loading">🔍 Verifying Vehicle...</div>
+<div class="wrapper">
+
+<div id="output">Loading...</div>
+
+</div>
 
 <script src="data.js"></script>
 
@@ -91,31 +92,27 @@ body{
 
 const id = new URLSearchParams(window.location.search).get("id");
 
-setTimeout(()=>{
+if(typeof DATA !== "undefined" && DATA[id]){
 
-  if(DATA && DATA[id]){
+  let v = DATA[id];
 
-    let v = DATA[id];
+  document.getElementById("output").innerHTML = `
+    <div class="card">
 
-    document.getElementById("output").innerHTML = `
-      <div class="card">
+      <div class="row"><div class="label">Vehicle</div><div class="value">${v.vehicle}</div></div>
+      <div class="row"><div class="label">Owner</div><div class="value">${v.owner}</div></div>
+      <div class="row"><div class="label">Mobile</div><div class="value">${v.mobile}</div></div>
+      <div class="row"><div class="label">Address</div><div class="value">${v.address}</div></div>
+      <div class="row"><div class="label">Insurance</div><div class="value">${v.insurance}</div></div>
+      <div class="row"><div class="label">Status</div><div class="value"><span class="badge">${v.status}</span></div></div>
 
-        <div class="row"><span class="label">Vehicle:</span> ${v.vehicle}</div>
-        <div class="row"><span class="label">Owner:</span> ${v.owner}</div>
-        <div class="row"><span class="label">Mobile:</span> ${v.mobile}</div>
-        <div class="row"><span class="label">Address:</span> ${v.address}</div>
-        <div class="row"><span class="label">Insurance:</span> ${v.insurance}</div>
-        <div class="row"><span class="label">Status:</span> <span class="status">${v.status}</span></div>
+    </div>
+  `;
 
-      </div>
-    `;
-
-  } else {
-    document.getElementById("output").innerHTML =
-    "<h3 style='text-align:center;color:red'>❌ VEHICLE NOT FOUND</h3>";
-  }
-
-}, 1200); // loading animation delay
+}else{
+  document.getElementById("output").innerHTML =
+  `<div class="error">VEHICLE NOT FOUND</div>`;
+}
 
 </script>
 

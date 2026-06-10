@@ -9,24 +9,21 @@
 
 body{
   margin:0;
-  font-family: system-ui, Arial;
+  font-family: system-ui;
   background:#0b1220;
   color:#e5e7eb;
 }
 
-/* HEADER */
 .header{
   background:#111827;
   padding:14px;
   text-align:center;
   font-weight:600;
-  letter-spacing:0.5px;
-  border-bottom:1px solid #1f2937;
 }
 
-/* WRAPPER */
+/* CENTER */
 .wrapper{
-  max-width:520px;
+  max-width:500px;
   margin:30px auto;
   padding:0 15px;
 }
@@ -37,6 +34,20 @@ body{
   border:1px solid #1f2937;
   border-radius:12px;
   padding:18px;
+}
+
+/* LOGO */
+.logo{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.logo img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #374151;
 }
 
 /* ROW */
@@ -53,24 +64,21 @@ body{
 }
 
 .value{
-  font-weight:500;
   color:#f3f4f6;
+  font-weight:500;
 }
 
-/* STATUS */
 .badge{
+  background:#16a34a;
   padding:3px 10px;
   border-radius:999px;
   font-size:12px;
-  background:#16a34a;
-  color:white;
 }
 
-/* NOT FOUND */
 .error{
   text-align:center;
   color:#ef4444;
-  padding:40px 0;
+  padding:30px;
 }
 
 </style>
@@ -78,7 +86,7 @@ body{
 
 <body>
 
-<div class="header">CAR-O VEHICLE VERIFICATION SYSTEM</div>
+<div class="header">CAR-O VEHICLE VERIFICATION</div>
 
 <div class="wrapper">
 
@@ -92,12 +100,15 @@ body{
 
 const id = new URLSearchParams(window.location.search).get("id");
 
-if(typeof DATA !== "undefined" && DATA[id]){
-
-  let v = DATA[id];
+function render(v){
 
   document.getElementById("output").innerHTML = `
     <div class="card">
+
+      <div class="logo">
+        <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png"
+        onerror="this.style.display='none'">
+      </div>
 
       <div class="row"><div class="label">Vehicle</div><div class="value">${v.vehicle}</div></div>
       <div class="row"><div class="label">Owner</div><div class="value">${v.owner}</div></div>
@@ -108,10 +119,13 @@ if(typeof DATA !== "undefined" && DATA[id]){
 
     </div>
   `;
+}
 
+if(typeof DATA !== "undefined" && DATA[id]){
+  render(DATA[id]);
 }else{
   document.getElementById("output").innerHTML =
-  `<div class="error">VEHICLE NOT FOUND</div>`;
+  "<div class='error'>VEHICLE NOT FOUND</div>";
 }
 
 </script>

@@ -1,20 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CAR-O System</title>
+  <title>CAR-O Vehicle System</title>
+
   <style>
-    body{font-family:Arial;background:#eef2f7;padding:20px;}
-    .card{background:white;padding:20px;max-width:420px;margin:auto;border-radius:12px;}
-    h2{text-align:center;}
-    .row{margin:8px 0;}
-    .label{font-weight:bold;}
-    .status{color:green;font-weight:bold;}
+    body{
+      margin:0;
+      font-family: Arial;
+      background: linear-gradient(135deg,#0f172a,#1e3a8a);
+      padding:20px;
+      color:white;
+    }
+
+    .card{
+      background:white;
+      color:#111;
+      max-width:420px;
+      margin:auto;
+      padding:20px;
+      border-radius:16px;
+      box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .logo{
+      text-align:center;
+      margin-bottom:10px;
+    }
+
+    .logo img{
+      width:90px;
+      border-radius:50%;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2{
+      text-align:center;
+      margin:10px 0;
+      color:#1e3a8a;
+    }
+
+    .row{
+      padding:10px;
+      border-bottom:1px solid #eee;
+      font-size:15px;
+    }
+
+    .label{
+      font-weight:bold;
+      color:#555;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+      color:white;
+    }
+
+    .active{
+      background:green;
+    }
+
+    .inactive{
+      background:red;
+    }
+
+    .footer{
+      text-align:center;
+      font-size:12px;
+      color:gray;
+      margin-top:15px;
+    }
   </style>
 </head>
+
 <body>
 
 <div class="card" id="output">
-  <h2>Loading CAR-O...</h2>
+
+  <div class="logo">
+    <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
+  </div>
+
+  <h2>🚗 CAR-O VERIFICATION</h2>
+
+  Loading...
+
 </div>
 
 <script src="data.js"></script>
@@ -23,16 +96,31 @@
 const id = new URLSearchParams(window.location.search).get("id");
 
 if(DATA[id]){
-  const v = DATA[id];
+  let v = DATA[id];
 
   document.getElementById("output").innerHTML = `
-    <h2>🚗 CAR-O Vehicle</h2>
-    <div class="row"><span class="label">Vehicle:</span> ${v.vehicle}</div>
-    <div class="row"><span class="label">Owner:</span> ${v.owner}</div>
-    <div class="row"><span class="label">Mobile:</span> ${v.mobile}</div>
-    <div class="row"><span class="label">Address:</span> ${v.address}</div>
-    <div class="row"><span class="label">Insurance:</span> ${v.insurance}</div>
-    <div class="row"><span class="label">Status:</span> ${v.status}</div>
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
+    </div>
+
+    <h2>🚗 CAR-O VEHICLE</h2>
+
+    <div class="row">🚘 <span class="label">Vehicle:</span> ${v.vehicle}</div>
+    <div class="row">👤 <span class="label">Owner:</span> ${v.owner}</div>
+    <div class="row">📱 <span class="label">Mobile:</span> ${v.mobile}</div>
+    <div class="row">📍 <span class="label">Address:</span> ${v.address}</div>
+    <div class="row">🛡 <span class="label">Insurance:</span> ${v.insurance}</div>
+
+    <div class="row">
+      📊 Status:
+      <span class="badge ${v.status == 'Active' ? 'active' : 'inactive'}">
+        ${v.status}
+      </span>
+    </div>
+
+    <div class="footer">
+      ✔ Verified by CAR-O System
+    </div>
   `;
 }
 else{

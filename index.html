@@ -25,23 +25,25 @@ body{
   border-top:6px solid #1d4ed8;
 }
 
-/* WATERMARK */
+/* WATERMARK (NOW 20% + DARKER LOOK) */
 .card::before{
   content:"";
   position:absolute;
   top:50%;
   left:50%;
-  width:320px;
-  height:320px;
+  width:360px;
+  height:360px;
   transform:translate(-50%,-50%);
   background:url("https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png");
   background-size:contain;
   background-repeat:no-repeat;
-  opacity:0.06;
+
+  opacity:0.20;              /* 🔥 increased from 0.06 */
+  filter:brightness(0.4);    /* 🔥 makes it darker */
   z-index:0;
 }
 
-/* CONTENT */
+/* CONTENT ABOVE */
 .content{
   position:relative;
   z-index:1;
@@ -94,19 +96,21 @@ h2{
   font-weight:500;
 }
 
-/* RED STAMP */
+/* 🔴 VERIFIED STAMP (FIXED VISIBILITY) */
 .stamp{
   position:absolute;
-  top:20px;
-  right:20px;
-  transform:rotate(-20deg);
-  border:3px solid red;
-  color:red;
-  font-weight:800;
-  font-size:14px;
-  padding:8px 12px;
-  border-radius:6px;
-  opacity:0.85;
+  top:25px;
+  right:25px;
+  transform:rotate(-18deg);
+  border:4px solid #dc2626;
+  color:#dc2626;
+  font-weight:900;
+  font-size:16px;
+  padding:10px 14px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.7);
+  z-index:2;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
 }
 
 /* BADGE */

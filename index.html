@@ -3,92 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAR-O Dashboard</title>
+<title>CAR-O Verification</title>
 
 <style>
 
 body{
   margin:0;
-  font-family: system-ui;
-  background:#0a0f1c;
+  font-family: system-ui, Arial;
+  background:#0b1220;
   color:#e5e7eb;
 }
 
-/* TOP BAR */
-.topbar{
+/* HEADER */
+.header{
   background:#111827;
   padding:14px;
   text-align:center;
   font-weight:600;
+  letter-spacing:0.5px;
   border-bottom:1px solid #1f2937;
 }
 
-/* WRAPPER */
-.container{
-  max-width:800px;
-  margin:20px auto;
-  padding:10px;
+/* CENTER WRAP */
+.wrapper{
+  max-width:520px;
+  margin:30px auto;
+  padding:0 15px;
 }
 
-/* DASHBOARD CARD */
+/* CARD */
 .card{
   background:#111827;
   border:1px solid #1f2937;
   border-radius:12px;
-  padding:15px;
-}
-
-/* HEADER SECTION */
-.headerBox{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-bottom:15px;
+  padding:18px;
 }
 
 /* LOGO */
 .logo{
-  width:55px;
-  height:55px;
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.logo img{
+  width:70px;
+  height:70px;
   border-radius:50%;
-  border:2px solid #374151;
   object-fit:cover;
+  border:2px solid #374151;
 }
 
-/* TITLE */
-.title{
-  font-size:16px;
-  font-weight:600;
-}
-
-/* TABLE STYLE */
-.table{
-  width:100%;
-}
-
+/* ROW */
 .row{
   display:flex;
   justify-content:space-between;
-  padding:10px;
+  padding:10px 0;
   border-bottom:1px solid #1f2937;
 }
 
 .label{
   color:#9ca3af;
+  font-size:13px;
 }
 
 .value{
   font-weight:500;
+  color:#f3f4f6;
 }
 
+/* STATUS */
 .badge{
   background:#16a34a;
-  padding:4px 10px;
+  padding:3px 10px;
   border-radius:999px;
   font-size:12px;
+  color:white;
 }
 
-/* NOT FOUND */
+/* ERROR */
 .error{
   text-align:center;
   color:#ef4444;
@@ -100,9 +92,9 @@ body{
 
 <body>
 
-<div class="topbar">🚔 CAR-O VEHICLE DASHBOARD</div>
+<div class="header">CAR-O VEHICLE VERIFICATION SYSTEM</div>
 
-<div class="container">
+<div class="wrapper">
 
 <div id="output">Loading...</div>
 
@@ -119,14 +111,9 @@ function render(v){
   document.getElementById("output").innerHTML = `
     <div class="card">
 
-      <div class="headerBox">
-
-        <img class="logo"
-          src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png"
-          onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'">
-
-        <div class="title">OFFICIAL VEHICLE RECORD</div>
-
+      <div class="logo">
+        <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png"
+        onerror="this.style.display='none'">
       </div>
 
       <div class="row"><div class="label">Vehicle</div><div class="value">${v.vehicle}</div></div>

@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAR-O Verification</title>
+<title>CAR-O Police Verification</title>
 
 <style>
 
 body{
   margin:0;
-  font-family: system-ui, Arial;
-  background:#0b1220;
+  font-family: system-ui;
+  background:#0a0f1c;
   color:#e5e7eb;
 }
 
-/* HEADER */
-.header{
+/* TOP BAR */
+.topbar{
   background:#111827;
   padding:14px;
   text-align:center;
-  font-weight:600;
-  letter-spacing:0.5px;
+  font-weight:700;
+  letter-spacing:1px;
   border-bottom:1px solid #1f2937;
 }
 
-/* CENTER WRAP */
+/* WRAPPER */
 .wrapper{
   max-width:520px;
   margin:30px auto;
@@ -33,24 +33,48 @@ body{
 
 /* CARD */
 .card{
+  position:relative;
   background:#111827;
-  border:1px solid #1f2937;
-  border-radius:12px;
+  border:2px solid #1f2937;
+  border-radius:14px;
   padding:18px;
+  overflow:hidden;
 }
 
-/* LOGO */
+/* STAMP */
+.stamp{
+  position:absolute;
+  top:20px;
+  right:15px;
+  transform:rotate(-15deg);
+  border:2px solid #ef4444;
+  color:#ef4444;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:700;
+  border-radius:6px;
+  opacity:0.8;
+}
+
+/* BADGE HEADER */
+.headerBox{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+
 .logo{
-  text-align:center;
-  margin-bottom:12px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  border:2px solid #374151;
 }
 
-.logo img{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid #374151;
+.title{
+  font-weight:700;
+  font-size:14px;
+  color:#93c5fd;
 }
 
 /* ROW */
@@ -68,19 +92,25 @@ body{
 
 .value{
   font-weight:500;
-  color:#f3f4f6;
 }
 
-/* STATUS */
+/* STATUS BADGE */
 .badge{
   background:#16a34a;
-  padding:3px 10px;
+  padding:4px 10px;
   border-radius:999px;
   font-size:12px;
-  color:white;
+  color:#fff;
 }
 
-/* ERROR */
+/* FOOT NOTE */
+.footer{
+  margin-top:10px;
+  font-size:11px;
+  color:#6b7280;
+  text-align:center;
+}
+
 .error{
   text-align:center;
   color:#ef4444;
@@ -92,7 +122,7 @@ body{
 
 <body>
 
-<div class="header">CAR-O VEHICLE VERIFICATION SYSTEM</div>
+<div class="topbar">🚔 OFFICIAL POLICE VEHICLE VERIFICATION SYSTEM</div>
 
 <div class="wrapper">
 
@@ -111,9 +141,14 @@ function render(v){
   document.getElementById("output").innerHTML = `
     <div class="card">
 
-      <div class="logo">
-        <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png"
+      <div class="stamp">VERIFIED ✓</div>
+
+      <div class="headerBox">
+        <img class="logo"
+        src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png"
         onerror="this.style.display='none'">
+
+        <div class="title">J&K VEHICLE RECORD SYSTEM</div>
       </div>
 
       <div class="row"><div class="label">Vehicle</div><div class="value">${v.vehicle}</div></div>
@@ -122,6 +157,8 @@ function render(v){
       <div class="row"><div class="label">Address</div><div class="value">${v.address}</div></div>
       <div class="row"><div class="label">Insurance</div><div class="value">${v.insurance}</div></div>
       <div class="row"><div class="label">Status</div><div class="value"><span class="badge">${v.status}</span></div></div>
+
+      <div class="footer">This record is system generated and for verification only.</div>
 
     </div>
   `;

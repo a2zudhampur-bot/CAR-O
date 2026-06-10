@@ -25,28 +25,28 @@ body{
   border-top:6px solid #1d4ed8;
 }
 
-/* WATERMARK (NOW 20% + DARKER LOOK) */
+/* 🔥 DARKER & CLEAR WATERMARK */
 .card::before{
   content:"";
   position:absolute;
   top:50%;
   left:50%;
-  width:360px;
-  height:360px;
+  width:380px;
+  height:380px;
   transform:translate(-50%,-50%);
   background:url("https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png");
   background-size:contain;
   background-repeat:no-repeat;
 
-  opacity:0.20;              /* 🔥 increased from 0.06 */
-  filter:brightness(0.4);    /* 🔥 makes it darker */
+  opacity:0.35;              /* 🔥 increased visibility */
+  filter:brightness(0.25);   /* 🔥 darker */
   z-index:0;
 }
 
-/* CONTENT ABOVE */
+/* CONTENT ABOVE WATERMARK */
 .content{
   position:relative;
-  z-index:1;
+  z-index:2;
 }
 
 /* HEADER */
@@ -96,21 +96,27 @@ h2{
   font-weight:500;
 }
 
-/* 🔴 VERIFIED STAMP (FIXED VISIBILITY) */
+/* 🔴 VERIFIED STAMP (MIDDLE POSITION) */
 .stamp{
   position:absolute;
-  top:25px;
-  right:25px;
-  transform:rotate(-18deg);
-  border:4px solid #dc2626;
+
+  /* 🔥 CENTER POSITION */
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-20deg);
+
+  border:5px solid #dc2626;
   color:#dc2626;
   font-weight:900;
-  font-size:16px;
-  padding:10px 14px;
-  border-radius:8px;
-  background:rgba(255,255,255,0.7);
-  z-index:2;
-  box-shadow:0 5px 10px rgba(0,0,0,0.2);
+  font-size:22px;
+
+  padding:12px 18px;
+  border-radius:10px;
+
+  background:rgba(255,255,255,0.85);
+  z-index:1;   /* 🔥 BETWEEN watermark & content */
+  box-shadow:0 10px 20px rgba(0,0,0,0.25);
+  letter-spacing:1px;
 }
 
 /* BADGE */
@@ -153,8 +159,6 @@ if(DATA[id]){
   document.getElementById("output").innerHTML = `
     <div class="content">
 
-      <div class="stamp">VERIFIED ✓</div>
-
       <div class="header">🚔 CAR-O VEHICLE VERIFICATION SYSTEM</div>
 
       <div class="logo">
@@ -175,6 +179,8 @@ if(DATA[id]){
       </div>
 
       <div class="footer">✔ System Generated Verified Document</div>
+
+      <div class="stamp">VERIFIED ✓</div>
 
     </div>
   `;

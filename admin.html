@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CAR-O Admin Panel</title>
+  <style>
+    body{
+      font-family:Arial;
+      background:#0f172a;
+      color:white;
+      padding:20px;
+    }
+
+    .box{
+      max-width:500px;
+      margin:auto;
+      background:white;
+      color:black;
+      padding:20px;
+      border-radius:12px;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      margin:5px 0;
+    }
+
+    button{
+      width:100%;
+      padding:10px;
+      background:green;
+      color:white;
+      border:none;
+      cursor:pointer;
+    }
+
+    pre{
+      background:#eee;
+      padding:10px;
+      overflow:auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>🚗 CAR-O Admin Panel</h2>
+
+  <input id="id" placeholder="Vehicle ID (V001)">
+  <input id="vehicle" placeholder="Vehicle No">
+  <input id="owner" placeholder="Owner">
+  <input id="mobile" placeholder="Mobile">
+  <input id="address" placeholder="Address">
+  <input id="insurance" placeholder="Insurance">
+  <input id="status" placeholder="Status">
+
+  <button onclick="addData()">Generate Data Code</button>
+
+  <h3>📌 Copy this into data.js</h3>
+  <pre id="output"></pre>
+</div>
+
+<script>
+function addData(){
+  let id = document.getElementById("id").value;
+
+  let obj = `
+"${id}": {
+  vehicle: "${document.getElementById("vehicle").value}",
+  owner: "${document.getElementById("owner").value}",
+  mobile: "${document.getElementById("mobile").value}",
+  address: "${document.getElementById("address").value}",
+  insurance: "${document.getElementById("insurance").value}",
+  status: "${document.getElementById("status").value}"
+},`;
+
+  document.getElementById("output").innerText = obj;
+}
+</script>
+
+</body>
+</html>

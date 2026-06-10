@@ -1,90 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CAR-O Vehicle System</title>
+<title>CAR-O Vehicle Verification</title>
 
-  <style>
-    body{
-      margin:0;
-      font-family: Arial;
-      background: linear-gradient(135deg,#0f172a,#1e3a8a);
-      padding:20px;
-      color:white;
-    }
+<style>
 
-    .card{
-      background:white;
-      color:#111;
-      max-width:420px;
-      margin:auto;
-      padding:20px;
-      border-radius:16px;
-      box-shadow:0 15px 35px rgba(0,0,0,0.3);
-    }
+body{
+  margin:0;
+  font-family: system-ui;
+  background: linear-gradient(135deg,#dbeafe,#eff6ff);
+  padding:20px;
+  color:#111827;
+}
 
-    .logo{
-      text-align:center;
-      margin-bottom:10px;
-    }
+/* MAIN CARD */
+.card{
+  background:white;
+  max-width:460px;
+  margin:auto;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
+  border-top:6px solid #1d4ed8;
+}
 
-    .logo img{
-      width:90px;
-      border-radius:50%;
-      box-shadow:0 4px 10px rgba(0,0,0,0.2);
-    }
+/* LOGO BIG HERO STYLE */
+.logo{
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:15px;
+}
 
-    h2{
-      text-align:center;
-      margin:10px 0;
-      color:#1e3a8a;
-    }
+.logo img{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  border:5px solid #1d4ed8;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
 
-    .row{
-      padding:10px;
-      border-bottom:1px solid #eee;
-      font-size:15px;
-    }
+/* TITLE */
+h2{
+  text-align:center;
+  color:#1d4ed8;
+  margin:10px 0 20px;
+  font-size:20px;
+  letter-spacing:1px;
+}
 
-    .label{
-      font-weight:bold;
-      color:#555;
-    }
+/* ROW */
+.row{
+  padding:12px 10px;
+  border-bottom:1px solid #e5e7eb;
+  font-size:15px;
+  display:flex;
+  justify-content:space-between;
+}
 
-    .badge{
-      display:inline-block;
-      padding:5px 10px;
-      border-radius:20px;
-      font-size:12px;
-      font-weight:bold;
-      color:white;
-    }
+/* LABEL */
+.label{
+  font-weight:600;
+  color:#374151;
+}
 
-    .active{
-      background:green;
-    }
+/* VALUE */
+.value{
+  color:#111827;
+  font-weight:500;
+}
 
-    .inactive{
-      background:red;
-    }
+/* BADGE */
+.badge{
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:bold;
+  color:white;
+}
 
-    .footer{
-      text-align:center;
-      font-size:12px;
-      color:gray;
-      margin-top:15px;
-    }
-  </style>
+.active{
+  background:#16a34a;
+}
+
+.inactive{
+  background:#dc2626;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  font-size:12px;
+  margin-top:15px;
+  color:#6b7280;
+}
+
+.headerTop{
+  text-align:center;
+  font-weight:700;
+  margin-bottom:15px;
+  color:#1e3a8a;
+  font-size:18px;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="card" id="output">
 
+  <div class="headerTop">🚔 CAR-O VEHICLE VERIFICATION SYSTEM</div>
+
   <div class="logo">
     <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
   </div>
-
-  <h2>🚗 CAR-O VERIFICATION</h2>
 
   Loading...
 
@@ -93,29 +123,30 @@
 <script src="data.js"></script>
 
 <script>
+
 const id = new URLSearchParams(window.location.search).get("id");
 
 if(DATA[id]){
   let v = DATA[id];
 
   document.getElementById("output").innerHTML = `
+    <div class="headerTop">🚔 CAR-O VEHICLE VERIFICATION SYSTEM</div>
+
     <div class="logo">
       <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
     </div>
 
-    <h2>🚗 CAR-O VEHICLE</h2>
+    <h2>OFFICIAL RECORD</h2>
 
-    <div class="row">🚘 <span class="label">Vehicle:</span> ${v.vehicle}</div>
-    <div class="row">👤 <span class="label">Owner:</span> ${v.owner}</div>
-    <div class="row">📱 <span class="label">Mobile:</span> ${v.mobile}</div>
-    <div class="row">📍 <span class="label">Address:</span> ${v.address}</div>
-    <div class="row">🛡 <span class="label">Insurance:</span> ${v.insurance}</div>
+    <div class="row"><span class="label">🚘 Vehicle</span><span class="value">${v.vehicle}</span></div>
+    <div class="row"><span class="label">👤 Owner</span><span class="value">${v.owner}</span></div>
+    <div class="row"><span class="label">📱 Mobile</span><span class="value">${v.mobile}</span></div>
+    <div class="row"><span class="label">📍 Address</span><span class="value">${v.address}</span></div>
+    <div class="row"><span class="label">🛡 Insurance</span><span class="value">${v.insurance}</span></div>
 
     <div class="row">
-      📊 Status:
-      <span class="badge ${v.status == 'Active' ? 'active' : 'inactive'}">
-        ${v.status}
-      </span>
+      <span class="label">📊 Status</span>
+      <span class="badge ${v.status=='Active'?'active':'inactive'}">${v.status}</span>
     </div>
 
     <div class="footer">
@@ -124,8 +155,9 @@ if(DATA[id]){
   `;
 }
 else{
-  document.getElementById("output").innerHTML = "Vehicle Not Found";
+  document.getElementById("output").innerHTML = "<h3 style='text-align:center'>Vehicle Not Found</h3>";
 }
+
 </script>
 
 </body>

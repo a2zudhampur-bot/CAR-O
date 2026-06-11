@@ -15,16 +15,18 @@ body{
 }
 
 .box{
-  max-width:700px;
+  max-width:750px;
   margin:auto;
   background:white;
   color:black;
   padding:25px;
   border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 h2{
   text-align:center;
+  color:#1e3a8a;
 }
 
 input{
@@ -32,6 +34,8 @@ input{
   padding:12px;
   margin:6px 0;
   box-sizing:border-box;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
 }
 
 button{
@@ -42,18 +46,27 @@ button{
   cursor:pointer;
   color:white;
   font-size:15px;
+  border-radius:8px;
 }
 
 .generate{
   background:#16a34a;
 }
 
+.copy{
+  background:#dc2626;
+}
+
 .print{
   background:#2563eb;
 }
 
-.copy{
-  background:#dc2626;
+#result{
+  margin-top:15px;
+  background:#f8fafc;
+  padding:15px;
+  border-radius:10px;
+  word-break:break-word;
 }
 
 #qr{
@@ -61,12 +74,11 @@ button{
   margin-top:20px;
 }
 
-#result{
-  margin-top:15px;
-  background:#f1f5f9;
-  padding:10px;
-  border-radius:10px;
-  word-break:break-all;
+pre{
+  background:#eef2ff;
+  padding:12px;
+  border-radius:8px;
+  overflow:auto;
 }
 
 </style>
@@ -80,9 +92,13 @@ button{
 
 <input id="vehicle" placeholder="Vehicle Number">
 <input id="owner" placeholder="Owner Name">
+<input id="mobile" placeholder="Mobile Number">
+<input id="address" placeholder="Address">
+<input id="insurance" placeholder="Insurance">
+<input id="status" placeholder="Status (Active/Inactive)">
 
 <button class="generate" onclick="generate()">
-Generate QR Record
+Generate Vehicle Record
 </button>
 
 <div id="result"></div>
@@ -111,17 +127,37 @@ let id = "V" + String(counter).padStart(3,"0");
 currentLink =
 "https://a2zudhampur-bot.github.io/CAR-O/?id=" + id;
 
+let entry = `"${id}": {
+  vehicle: "${vehicle.value}",
+  owner: "${owner.value}",
+  mobile: "${mobile.value}",
+  address: "${address.value}",
+  insurance: "${insurance.value}",
+  status: "${status.value}"
+},`;
+
 document.getElementById("result").innerHTML =
 
-"<b>ID:</b> "+id+
-"<br><b>Vehicle:</b> "+vehicle.value+
-"<br><b>Owner:</b> "+owner.value+
-"<br><br><b>Verification Link:</b><br>"+currentLink;
+"<h3>Generated Record</h3>" +
+
+"<b>ID:</b> " + id +
+
+"<br><b>Vehicle:</b> " + vehicle.value +
+
+"<br><b>Owner:</b> " + owner.value +
+
+"<br><br><b>Verification Link:</b><br>" +
+
+currentLink +
+
+"<br><br><b>DATA.JS Entry:</b>" +
+
+"<pre>" + entry + "</pre>";
 
 document.getElementById("qr").innerHTML =
 
-'<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data='
-+ encodeURIComponent(currentLink) +
+'<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' +
+encodeURIComponent(currentLink) +
 '">';
 
 counter++;
@@ -131,13 +167,12 @@ counter++;
 function copyLink(){
 
 if(!currentLink){
-alert("Generate record first");
-return;
+  alert("Generate record first");
+  return;
 }
 
 navigator.clipboard.writeText(currentLink);
-
-alert("Link copied");
+alert("Verification link copied");
 
 }
 

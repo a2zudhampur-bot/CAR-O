@@ -34,4 +34,5 @@ window.DATA = {
   insurance: "2025",
   status: "undefined"
 }
+  
 };

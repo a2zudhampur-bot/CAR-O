@@ -42,6 +42,6 @@ window.DATA = {
   address: "SHIV NAGAR, WARD-1, UDHAMPUR",
   insurance: "2026",
   status: "undefined"
-},
+}
   
 };

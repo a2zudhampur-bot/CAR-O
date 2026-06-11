@@ -24,7 +24,7 @@ window.DATA = {
     address: "Ward 1, Udhampur",
     insurance: "05-2026",
     status: "Active"
-  }
+  },
 
   "V005": {
   vehicle: "JK14K0900",

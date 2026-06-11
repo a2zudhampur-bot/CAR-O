@@ -1,4 +1,4 @@
-const DATA = {
+window.DATA = {
   "V001": {
     vehicle: "JK02AB1234",
     owner: "Amit Kumar",

@@ -25,4 +25,13 @@ window.DATA = {
     insurance: "05-2026",
     status: "Active"
   }
+
+  "V005": {
+  vehicle: "JK14K0900",
+  owner: "ANJEEV VERMA",
+  mobile: "9419294905",
+  address: "NEAR BDO OFFICE, KALLAR UDHAMPUR",
+  insurance: "2025",
+  status: "undefined"
+}
 };

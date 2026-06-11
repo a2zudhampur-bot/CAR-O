@@ -41,7 +41,7 @@ window.DATA = {
   mobile: "9697199456",
   address: "SHIV NAGAR, WARD-1, UDHAMPUR",
   insurance: "2026",
-  status: "undefined"
+  status: "Active"
 }
-  
+
 };

@@ -1,57 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>CAR-O Verification</title>
+<meta charset="UTF-8">
+<title>CAR-O Vehicle Verification</title>
 
 <style>
 
 body{
   margin:0;
-  font-family: system-ui;
+  font-family:system-ui,sans-serif;
   background:#f1f5f9;
 }
 
-/* CARD WRAPPER */
 .card{
   position:relative;
   width:520px;
   margin:30px auto;
-  background:white;
+  background:#fff;
   border-radius:18px;
   overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,0.12);
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
   border-top:6px solid #1d4ed8;
 }
 
-/* 🔒 FIXED LAYOUT LAYER (IMPORTANT) */
 .layer{
   position:relative;
   padding:25px;
   z-index:2;
 }
 
-/* 🔻 WATERMARK FIXED BOTTOM (NO MOVE) */
 .watermark{
   position:absolute;
-  bottom:0;
+  bottom:-60px;
   left:50%;
   transform:translateX(-50%);
-
   width:420px;
   height:420px;
-
-  background:url("https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png");
-  background-size:contain;
-  background-repeat:no-repeat;
-
-  opacity:0.22;
-  filter:brightness(0.35);
-
+  background:url("CAR-O.png") center/contain no-repeat;
+  opacity:.22;
+  filter:brightness(.35);
   z-index:0;
   pointer-events:none;
 }
 
-/* HEADER */
 .header{
   text-align:center;
   font-weight:700;
@@ -59,7 +50,6 @@ body{
   margin-bottom:10px;
 }
 
-/* LOGO */
 .logo{
   text-align:center;
   margin:10px 0 15px;
@@ -71,17 +61,15 @@ body{
   border-radius:50%;
   border:5px solid #1d4ed8;
   object-fit:cover;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
-/* TITLE */
 h2{
   text-align:center;
   margin-bottom:20px;
   font-size:18px;
 }
 
-/* ROWS */
 .row{
   display:flex;
   justify-content:space-between;
@@ -97,25 +85,19 @@ h2{
 
 .value{
   font-weight:500;
+  text-align:right;
 }
 
-/* 🔴 FIXED STAMP (TRUE CENTER OVER CONTENT ONLY) */
 .stamp-layer{
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-
+  inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-
   z-index:1;
   pointer-events:none;
 }
 
-/* STAMP STYLE */
 .stamp{
   border:5px solid #dc2626;
   color:#dc2626;
@@ -123,12 +105,10 @@ h2{
   font-size:22px;
   padding:12px 18px;
   border-radius:10px;
-  background:rgba(255,255,255,0.9);
+  background:rgba(255,255,255,.92);
   transform:rotate(-18deg);
-  box-shadow:0 10px 20px rgba(0,0,0,0.25);
 }
 
-/* BADGE */
 .badge{
   padding:5px 12px;
   border-radius:999px;
@@ -136,15 +116,24 @@ h2{
   color:white;
 }
 
-.active{ background:#16a34a; }
-.inactive{ background:#dc2626; }
+.active{
+  background:#16a34a;
+}
 
-/* FOOTER */
+.inactive{
+  background:#dc2626;
+}
+
 .footer{
   text-align:center;
   font-size:12px;
   margin-top:15px;
   color:#64748b;
+}
+
+.notfound{
+  text-align:center;
+  padding:50px 20px;
 }
 
 </style>
@@ -154,15 +143,12 @@ h2{
 
 <div class="card">
 
-  <!-- WATERMARK FIXED -->
   <div class="watermark"></div>
 
-  <!-- STAMP LOCKED LAYER -->
   <div class="stamp-layer">
     <div class="stamp">VERIFIED ✓</div>
   </div>
 
-  <!-- CONTENT -->
   <div class="layer" id="output">
     Loading...
   </div>
@@ -173,39 +159,72 @@ h2{
 
 <script>
 
-const id = new URLSearchParams(window.location.search).get("id");
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-if(DATA[id]){
-  let v = DATA[id];
+function showVehicle(v){
 
-  document.getElementById("output").innerHTML = `
+document.getElementById("output").innerHTML = `
 
-    <div class="header">🚔 CAR-O VEHICLE VERIFICATION SYSTEM</div>
+<div class="header">
+🚔 CAR-O VEHICLE VERIFICATION SYSTEM
+</div>
 
-    <div class="logo">
-      <img src="https://raw.githubusercontent.com/a2zudhampur-bot/CAR-O/main/CAR-O.png">
-    </div>
+<div class="logo">
+<img src="CAR-O.png" alt="CAR-O">
+</div>
 
-    <h2>OFFICIAL RECORD CERTIFICATE</h2>
+<h2>OFFICIAL RECORD CERTIFICATE</h2>
 
-    <div class="row"><span class="label">Vehicle</span><span class="value">${v.vehicle}</span></div>
-    <div class="row"><span class="label">Owner</span><span class="value">${v.owner}</span></div>
-    <div class="row"><span class="label">Mobile</span><span class="value">${v.mobile}</span></div>
-    <div class="row"><span class="label">Address</span><span class="value">${v.address}</span></div>
-    <div class="row"><span class="label">Insurance</span><span class="value">${v.insurance}</span></div>
+<div class="row">
+<span class="label">Vehicle</span>
+<span class="value">${v.vehicle}</span>
+</div>
 
-    <div class="row">
-      <span class="label">Status</span>
-      <span class="badge ${v.status=='Active'?'active':'inactive'}">${v.status}</span>
-    </div>
+<div class="row">
+<span class="label">Owner</span>
+<span class="value">${v.owner}</span>
+</div>
 
-    <div class="footer">✔ System Generated Verified Document</div>
+<div class="row">
+<span class="label">Mobile</span>
+<span class="value">${v.mobile}</span>
+</div>
 
-  `;
+<div class="row">
+<span class="label">Address</span>
+<span class="value">${v.address}</span>
+</div>
+
+<div class="row">
+<span class="label">Insurance</span>
+<span class="value">${v.insurance}</span>
+</div>
+
+<div class="row">
+<span class="label">Status</span>
+<span class="badge ${v.status === 'Active' ? 'active' : 'inactive'}">
+${v.status}
+</span>
+</div>
+
+<div class="footer">
+✔ System Generated Verified Document
+</div>
+
+`;
+
 }
-else{
-  document.getElementById("output").innerHTML =
-  "<h3 style='text-align:center'>Vehicle Not Found</h3>";
+
+if(id && window.DATA && window.DATA[id]){
+  showVehicle(window.DATA[id]);
+}else{
+  document.getElementById("output").innerHTML = `
+    <div class="notfound">
+      <h2>❌ Vehicle Not Found</h2>
+      <p>ID: ${id || "No ID Provided"}</p>
+    </div>
+  `;
 }
 
 </script>

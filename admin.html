@@ -4,12 +4,49 @@
   <title>CAR-O Admin Panel</title>
 
   <style>
-    body{font-family:Arial;background:#0f172a;color:white;padding:20px;}
-    .box{background:white;color:black;padding:20px;max-width:500px;margin:auto;border-radius:12px;}
-    input{width:100%;padding:10px;margin:5px 0;}
-    button{width:100%;padding:10px;background:green;color:white;border:none;}
-    .idbox{font-weight:bold;color:blue;margin-bottom:10px;}
-    pre{background:#eee;padding:10px;}
+    body{
+      font-family:Arial;
+      background:#0f172a;
+      color:white;
+      padding:20px;
+    }
+
+    .box{
+      background:white;
+      color:black;
+      padding:20px;
+      max-width:500px;
+      margin:auto;
+      border-radius:12px;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      margin:6px 0;
+    }
+
+    button{
+      width:100%;
+      padding:10px;
+      background:#16a34a;
+      color:white;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .idbox{
+      font-weight:bold;
+      color:#1d4ed8;
+      margin-bottom:10px;
+    }
+
+    pre{
+      background:#f1f5f9;
+      padding:10px;
+      overflow:auto;
+    }
 
     #qrcode{
       display:flex;
@@ -26,34 +63,35 @@
 <body>
 
 <div class="box">
+
   <h2>🚗 CAR-O Admin Panel</h2>
 
-  <div class="idbox" id="autoId">Loading ID...</div>
+  <div class="idbox" id="autoId">Loading...</div>
 
   <input id="vehicle" placeholder="Vehicle No">
   <input id="owner" placeholder="Owner">
   <input id="mobile" placeholder="Mobile">
   <input id="address" placeholder="Address">
   <input id="insurance" placeholder="Insurance">
-  <input id="status" placeholder="Status">
+  <input id="status" placeholder="Status (Active/Inactive)">
 
   <button onclick="generate()">Generate Entry + QR</button>
 
-  <!-- QR DISPLAY -->
   <div id="qrcode"></div>
 
   <pre id="out"></pre>
+
 </div>
 
 <script>
 
-// dummy existing data
+// SAFE DATA (no dependency on GitHub live)
 let DATA = {
   "V001": {},
   "V002": {}
 };
 
-// AUTO ID
+// SAFE ID GENERATOR
 function getNextId(){
   let keys = Object.keys(DATA);
   let max = 0;
@@ -66,14 +104,14 @@ function getNextId(){
   return "V" + String(max + 1).padStart(3,"0");
 }
 
-// show next ID
+// SHOW ID ON LOAD
 document.getElementById("autoId").innerText =
 "Next Vehicle ID: " + getNextId();
 
-// QR GENERATOR
+// QR GENERATOR (SAFE)
 function generateQR(id){
 
-  let url = "https://your-site.com/verify.html?id=" + id;
+  let url = "https://a2zudhampur.github.io/CAR-O/verify.html?id=" + id;
 
   document.getElementById("qrcode").innerHTML = "";
 
@@ -84,24 +122,24 @@ function generateQR(id){
   });
 }
 
-// GENERATE ENTRY
+// MAIN FUNCTION
 function generate(){
 
   let id = getNextId();
 
-  let obj = `
-"${id}": {
-  vehicle: "${vehicle.value}",
-  owner: "${owner.value}",
-  mobile: "${mobile.value}",
-  address: "${address.value}",
-  insurance: "${insurance.value}",
-  status: "${status.value}"
-},`;
+  let obj = {
+    vehicle: vehicle.value,
+    owner: owner.value,
+    mobile: mobile.value,
+    address: address.value,
+    insurance: insurance.value,
+    status: status.value
+  };
 
-  document.getElementById("out").innerText = obj;
+  document.getElementById("out").innerText =
+  `"${id}": ` + JSON.stringify(obj, null, 2);
 
-  // QR CALL 🔥
+  // QR generate
   generateQR(id);
 
   // reset form
